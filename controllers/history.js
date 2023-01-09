@@ -2,12 +2,33 @@ const history = require("../models/history");
 
 exports.saveHistory = async (req, res) => {
     try {
-      const { userId, audioUrl, audioFormat, audioName, videoName } = req.body;
-      res.json(await new history({ userId, audioUrl, audioFormat, audioName, videoName }).save());
+      const { userId, audioUrl, audioFormat, audioName, videoName, comments } = req.body;
+      res.json(await new history({ userId, audioUrl, audioFormat, audioName, videoName, comments }).save());
     } catch (err) {
       console.log(err);
       res.status(400).send("Saving audio history failed");
     }
+};
+
+exports.updateComments = async (req, res) => {
+  try {
+    const { commId, comments } = req.body;
+    res.json(await history.findByIdAndUpdate(commId, {comments: comments}).exec());
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Updating comments failde");
+  }
+};
+
+exports.addSubtitleText = async (req, res) => {
+  console.log("sss");
+  try {
+    const { commId, subtitle, text} = req.body;
+    res.json(await history.findByIdAndUpdate(commId, {subtitle: subtitle, text: text}).exec());
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Adding subtitles and text failed");
+  }
 };
 
 exports.getHistoryById = async (req, res) => {
@@ -26,3 +47,4 @@ exports.getHistoryforUser = async (req, res) => {
     res.json(hist);
   }
 };
+

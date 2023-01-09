@@ -17,6 +17,15 @@ const historySchema = new mongoose.Schema({
     videoName:{
         type:String, required:true
     },
+    comments:{
+        type:String, required:true
+    },
+    subtitle:{
+        type:String
+    },
+    text:{
+        type:String
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model("History", historySchema);

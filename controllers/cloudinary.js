@@ -8,7 +8,7 @@ cloudinary.config({
 
 exports.uploadAudio = async (req,res) => {
     try {
-    let result= await cloudinary.uploader.upload(req.body.audio, { resource_type: "auto", folder: "ethosAudioFiles/", public_id:`${Date.now()}`, format:req.body.format})
+    let result= await cloudinary.uploader.upload(req.body.audio, { resource_type: "auto", folder: "ethosAudioFiles/", public_id:`${Date.now()}`, format:req.body.format, timeout:100000})
     res.json({
         public_id:result.public_id,
         url:result.secure_url
